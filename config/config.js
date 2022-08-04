@@ -1,4 +1,4 @@
-require('detenv').config();
+require('dotenv').config();
 
 const config = {
     env: process.env.NODE_ENV || 'development',
