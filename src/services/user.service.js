@@ -46,6 +46,7 @@ class UserService {
 }
 
 module.exports = UserService;
+
 //create a user                                 post
 //view his info                                 get
 //get                                 get

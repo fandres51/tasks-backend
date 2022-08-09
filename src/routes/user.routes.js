@@ -15,6 +15,16 @@ router.get('/', async (req, res, next) => {
     }
 });
 
+router.get('/:id', async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const user = await service.findOne(id);
+        res.json(user);
+    } catch (e) {
+        next(e);
+    }
+});
+
 router.post('/', async (req, res, next) => {
     try {
         const body = req.body;
@@ -35,6 +45,7 @@ router.patch('/:id', async (req, res, next) => {
         next(error);
     }
 });
+
 router.delete('/:id', async (req, res, next) => {
     try {
         const { id } = req.params;
