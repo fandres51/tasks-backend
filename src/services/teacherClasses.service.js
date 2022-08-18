@@ -10,14 +10,34 @@ class TeacherClassService {
     async create(class_data) {
         const classIdUuid = uuidv4();
         const newClass = {
-            id: 'class' + classIdUuid,
-            code: getClassCode(classIdUuid),
+            id: classIdUuid,
+            code: this.getClassCode(classIdUuid),
             name: class_data.name,
             type: 'active'
         }
         const resNewClass = await models.Class.create(newClass);
+        const resRel = await this.createUserClass(class_data.userId, classIdUuid, class_data.relation);
         return resNewClass;
     }
+
+    async createUserClass(userid, classid, relation) {
+        const newUserClass = {
+            id: uuidv4(),
+            userId: userid,
+            classId: classid,
+            relation: relation
+        }
+        const resNewRel = await models.UserClass.create(newUserClass);
+        return resNewRel;
+    }
+
+    // async viewAllClasses(teacher_id) {
+    //     const res = await models.Class.findAll({
+    //         where:  {
+
+    //         }
+    //     })
+    // }
     //create class                                  post
     //view all his classes                          get
     //get the details of a class                    get
